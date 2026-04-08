@@ -1,6 +1,6 @@
 # Bytes & Layers Website (Cloudflare Pages)
 
-Statische Website mit Produktseiten fuer digitale und physische Produkte.
+Statische Website mit Produktseiten (Cocktail Maschine, Racer, Kochbox).
 
 ## 1) Lokal testen
 
@@ -16,8 +16,9 @@ Dann im Browser `http://localhost:8080` aufrufen.
 
 Aktuell sind Platzhalter in folgenden Dateien gesetzt:
 
-- `product-notion-template-bundle.html`
-- `product-creator-starter-kit.html`
+- `product-cocktail-maschine.html`
+- `product-racer.html`
+- `product-kochbox.html`
 
 Ersetze `https://checkout.example.com/...` durch deine echten Checkout-Links.
 
