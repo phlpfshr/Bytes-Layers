@@ -11,12 +11,30 @@
       name="description"
       content="Racer: Geraet zum Messen der Zeit beim Bierexen, mit Modi fuer Solo und Teams, Highscore-Liste und App."
     />
-    <link rel="stylesheet" href="assets/styles.css?v=61dbcc4" />
+    <link rel="stylesheet" href="assets/styles.css?v=61dbcc4-worddots" />
   </head>
-  <body>
+  <body class="home-page">
+    <div class="grid-rain" id="grid-rain" aria-hidden="true"></div>
     <header class="site-header">
       <div class="container nav-wrap">
-        <a class="logo" href="index.html">Bytes & Layers</a>
+        <a class="logo" href="index.html" aria-label="Startseite">
+          <img src="assets/logo-bl-clean.png" alt="Bytes & Layers" class="logo-mark" />
+          <span class="logo-text">Bytes & Layers</span>
+        </a>
+        <a
+          class="icon-btn header-ig"
+          href="https://instagram.com/"
+          target="_blank"
+          rel="noopener"
+          aria-label="Instagram Profil"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              fill="currentColor"
+              d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 3.25A4.75 4.75 0 1 1 7.25 12 4.75 4.75 0 0 1 12 7.25Zm0 2A2.75 2.75 0 1 0 14.75 12 2.75 2.75 0 0 0 12 9.25ZM17.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6Z"
+            />
+          </svg>
+        </a>
         <button
           class="nav-toggle"
           type="button"
@@ -27,10 +45,25 @@
           <span class="nav-toggle-icon" aria-hidden="true"></span>
         </button>
         <nav id="site-nav" class="site-nav" aria-label="Hauptnavigation">
-          <a href="index.html">Start</a>
+          <a href="index.html" aria-label="Startseite" class="home-icon">HOME</a>
           <a href="products.html">Produkte</a>
+          <a href="anfrage.html">Projektanfrage</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Kontakt</a>
+          <a
+            class="icon-btn"
+            href="https://instagram.com/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram Profil"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                fill="currentColor"
+                d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 3.25A4.75 4.75 0 1 1 7.25 12 4.75 4.75 0 0 1 12 7.25Zm0 2A2.75 2.75 0 1 0 14.75 12 2.75 2.75 0 0 0 12 9.25ZM17.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6Z"
+              />
+            </svg>
+          </a>
         </nav>
       </div>
     </header>
@@ -65,6 +98,6 @@
       </div>
     </footer>
 
-    <script src="assets/main.js?v=61dbcc4"></script>
+    <script src="assets/main.js?v=61dbcc4-worddots"></script>
   </body>
 </html>
