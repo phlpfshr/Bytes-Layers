@@ -5,3 +5,12 @@ compatibility_date = "2026-04-08"
 
 [assets]
 directory = "./"
+
+# Custom Domains (legt bei deploy DNS + SSL an – Zone muss im selben CF-Account sein)
+[[routes]]
+pattern = "bytesandlayers.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.bytesandlayers.com"
+custom_domain = true
