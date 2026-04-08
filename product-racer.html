@@ -17,9 +17,18 @@
     <header class="site-header">
       <div class="container nav-wrap">
         <a class="logo" href="index.html">Bytes & Layers</a>
-        <nav aria-label="Hauptnavigation">
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Menue"
+          aria-controls="site-nav"
+          aria-expanded="false"
+        >
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+        <nav id="site-nav" class="site-nav" aria-label="Hauptnavigation">
           <a href="index.html">Start</a>
-          <a class="nav-cta" href="products.html">Shop</a>
+          <a href="products.html">Produkte</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Kontakt</a>
         </nav>
@@ -40,13 +49,7 @@
           <li>App fuer Konfiguration, Spielsteuerung und Ergebnisse</li>
         </ul>
         <p><strong>Preis auf Anfrage</strong></p>
-        <a
-          class="btn btn-primary"
-          href="https://checkout.example.com/buy/racer"
-          target="_blank"
-          rel="noopener"
-          >Jetzt kaufen</a
-        >
+        <a class="btn btn-primary" href="anfrage.html?product=Racer">Jetzt anfragen</a>
       </div>
     </main>
 
