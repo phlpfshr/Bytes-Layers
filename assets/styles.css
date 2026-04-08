@@ -225,6 +225,24 @@ nav a:hover {
   color: var(--accent);
 }
 
+.site-nav .nav-link-products {
+  color: #ff7a00;
+}
+
+.site-nav .nav-link-request {
+  color: #97baff;
+}
+
+.site-nav .nav-link-products:hover,
+.site-nav .nav-link-products[aria-current="page"] {
+  color: #ff7a00;
+}
+
+.site-nav .nav-link-request:hover,
+.site-nav .nav-link-request[aria-current="page"] {
+  color: #97baff;
+}
+
 .icon-btn {
   width: 2rem;
   height: 2rem;
@@ -270,7 +288,7 @@ nav a:hover {
 
 .logo-text {
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   white-space: nowrap;
@@ -594,11 +612,15 @@ h2 {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     text-align: left;
     position: relative;
     z-index: 81;
     gap: 0.55rem 0.7rem;
+  }
+
+  .logo {
+    margin-right: auto;
   }
 
   .header-ig {

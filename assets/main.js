@@ -295,12 +295,16 @@ if (navToggle instanceof HTMLButtonElement && siteNav instanceof HTMLElement) {
     const link = target.closest("a[href]");
     if (!(link instanceof HTMLAnchorElement)) return;
 
-    // Keep native link behavior intact and close menu right after.
     if (link.target === "_blank") {
       setNavOpen(false);
       return;
     }
-    window.setTimeout(() => setNavOpen(false), 0);
+
+    // Navigate explicitly to avoid missed taps in the mobile menu.
+    e.preventDefault();
+    const destination = link.href;
+    setNavOpen(false);
+    window.location.href = destination;
   });
 
   window.addEventListener("resize", () => {
