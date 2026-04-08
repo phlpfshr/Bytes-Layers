@@ -312,29 +312,15 @@ const requestForm = document.getElementById("request-form");
 
 if (requestForm instanceof HTMLFormElement) {
   const requestInput = document.getElementById("request");
-  const productInput = document.getElementById("product");
   const nameInput = document.getElementById("name");
   const emailInput = document.getElementById("email");
   const phoneInput = document.getElementById("phone");
-
-  const params = new URLSearchParams(window.location.search);
-  const productFromQuery = params.get("product");
-  const isProductRequest = Boolean(productFromQuery && productFromQuery.trim());
-  if (productInput instanceof HTMLInputElement) {
-    if (isProductRequest) {
-      productInput.value = productFromQuery.trim();
-    } else {
-      productInput.value = "";
-    }
-  }
 
   requestForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const requestText =
       requestInput instanceof HTMLTextAreaElement ? requestInput.value.trim() : "";
-    const product =
-      productInput instanceof HTMLInputElement ? productInput.value.trim() : "";
     const name =
       nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
     const email =
@@ -348,14 +334,12 @@ if (requestForm instanceof HTMLFormElement) {
     }
 
     const to = "hello@example.com";
-    const subject = isProductRequest
-      ? `Produktanfrage: ${product}`
-      : `Projektanfrage${product ? `: ${product}` : ""}`;
+    const subject = "Projektanfrage";
     const bodyLines = [
       "Hallo Bytes & Layers,",
       "",
       "ich moechte folgendes anfragen:",
-      product ? `- Bezug: ${product}` : "- Bezug: Allgemeine Projektanfrage",
+      "- Bezug: Allgemeine Projektanfrage",
       "",
       "Anfrage:",
       requestText,
