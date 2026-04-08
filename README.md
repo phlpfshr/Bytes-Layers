@@ -42,7 +42,7 @@ Ersetze `https://checkout.example.com/...` durch deine echten Checkout-Links.
 ## 5) Cloudflare-Dateien in diesem Repo
 
 - `_headers`: Security-Header und Caching-Regeln
-- `_redirects`: Host-Weiterleitung (bitte auf echte Domain anpassen)
+- Host-/HTTPS-Weiterleitungen: in Cloudflare unter **Rules → Redirect Rules** (nicht `_redirects`; Workers-Deploy validiert die Datei streng)
 - `robots.txt` und `sitemap.xml`: SEO-Basis (Domain anpassen)
 
 ## 6) Go-Live Checkliste

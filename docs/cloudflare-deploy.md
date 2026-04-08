@@ -34,7 +34,7 @@
 
 1. `SSL/TLS` auf `Full (strict)` setzen (falls Zertifikatskette passt).
 2. `Always Use HTTPS` aktivieren.
-3. Datei `_redirects` auf deine echte Domain anpassen.
+3. Weiterleitungen (apex/www, http→https) unter **Rules → Redirect Rules** einrichten, nicht über `_redirects` (Workers-Static-Deploy).
 
 ## G. Nach jedem Push
 

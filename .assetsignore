@@ -1,0 +1,10 @@
+# Nicht als öffentliche Static-Assets hochladen
+.git/
+.wrangler/
+node_modules/
+.env
+.env.*
+*.log
+.cursor/
+wrangler.toml
+wrangler.jsonc

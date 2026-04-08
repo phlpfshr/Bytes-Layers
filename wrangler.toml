@@ -1,0 +1,7 @@
+# Workers + Static Assets (Git-Build mit „Deploy command“)
+# Name muss zum Worker in Cloudflare passen (z. B. byteslayers).
+name = "byteslayers"
+compatibility_date = "2026-04-08"
+
+[assets]
+directory = "./"

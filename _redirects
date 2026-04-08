@@ -1,3 +1,0 @@
-# Keep one canonical host; replace with your real domain.
-https://bytesandlayers.example/* https://www.bytesandlayers.example/:splat 301!
-http://www.bytesandlayers.example/* https://www.bytesandlayers.example/:splat 301!
