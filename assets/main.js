@@ -4,6 +4,38 @@ if (yearNode) {
   yearNode.textContent = String(new Date().getFullYear());
 }
 
+const languageButtons = Array.from(document.querySelectorAll(".lang-btn[data-lang]"));
+
+if (languageButtons.length > 0) {
+  const supportedLanguages = new Set(["de", "en", "fr"]);
+
+  function applyLanguage(lang) {
+    const normalized = supportedLanguages.has(lang) ? lang : "de";
+    document.documentElement.lang = normalized;
+
+    for (const button of languageButtons) {
+      if (!(button instanceof HTMLButtonElement)) continue;
+      const buttonLang = button.dataset.lang || "";
+      const isActive = buttonLang === normalized;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    }
+
+    localStorage.setItem("site-language", normalized);
+  }
+
+  const storedLanguage = localStorage.getItem("site-language") || "de";
+  applyLanguage(storedLanguage);
+
+  for (const button of languageButtons) {
+    if (!(button instanceof HTMLButtonElement)) continue;
+    button.addEventListener("click", () => {
+      const nextLanguage = button.dataset.lang || "de";
+      applyLanguage(nextLanguage);
+    });
+  }
+}
+
 function initGridRain() {
   const rainRoot = document.getElementById("grid-rain");
   if (!(rainRoot instanceof HTMLElement)) return;
@@ -101,7 +133,7 @@ function initGridRain() {
     dot.className = "rain-dot";
     const p = randomPoint();
     dot.style.transform = `translate3d(${p.x}px, ${p.y}px, 0)`;
-    dot.style.opacity = "0.15";
+    dot.style.opacity = "0.32";
     rainRoot.appendChild(dot);
     dots.push({
       el: dot,
@@ -132,9 +164,10 @@ function initGridRain() {
         dot.y = -GRID_SIZE;
         dot.x = alignToGrid(Math.random() * window.innerWidth);
       }
+
       dot.el.style.transition = "none";
       dot.el.style.transform = `translate3d(${dot.x}px, ${dot.y}px, 0)`;
-      dot.el.style.opacity = String(0.18 + Math.random() * 0.22);
+      dot.el.style.opacity = String(0.28 + Math.random() * 0.3);
     }
     rafId = requestAnimationFrame(fallStep);
   }
@@ -413,5 +446,127 @@ if (contactForm instanceof HTMLFormElement) {
     )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
     window.location.href = mailto;
+  });
+}
+
+const productRequestForm = document.getElementById("product-request-form");
+
+if (productRequestForm instanceof HTMLFormElement) {
+  const allowedProducts = new Set(["Fusion", "Racer", "Sizzler"]);
+  const productInput = document.getElementById("product-request-product");
+  const notesInput = document.getElementById("product-request-notes");
+  const nameInput = document.getElementById("product-request-name");
+  const emailInput = document.getElementById("product-request-email");
+  const phoneInput = document.getElementById("product-request-phone");
+
+  const params = new URLSearchParams(window.location.search);
+  const requestedProduct = (params.get("product") || "").trim();
+  const selectedProduct = allowedProducts.has(requestedProduct) ? requestedProduct : "Fusion";
+
+  if (productInput instanceof HTMLInputElement) {
+    productInput.value = selectedProduct;
+  }
+
+  productRequestForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const product = productInput instanceof HTMLInputElement ? productInput.value.trim() : "";
+    const quantityChoice = productRequestForm.querySelector('input[name="quantity"]:checked');
+    const quantityRaw =
+      quantityChoice instanceof HTMLInputElement ? quantityChoice.value.trim() : "";
+    const notes = notesInput instanceof HTMLTextAreaElement ? notesInput.value.trim() : "";
+    const name = nameInput instanceof HTMLInputElement ? nameInput.value.trim() : "";
+    const email = emailInput instanceof HTMLInputElement ? emailInput.value.trim() : "";
+    const phone = phoneInput instanceof HTMLInputElement ? phoneInput.value.trim() : "";
+    const quantity = Number.parseInt(quantityRaw, 10);
+
+    if (!product || !quantityRaw || Number.isNaN(quantity) || quantity < 1 || !name || !email) {
+      productRequestForm.reportValidity();
+      return;
+    }
+
+    const to = "hello@example.com";
+    const subject = `Produktanfrage: ${product}`;
+    const bodyLines = [
+      "Hallo Bytes & Layers,",
+      "",
+      "ich moechte folgendes Produkt anfragen:",
+      `- Produkt: ${product}`,
+      `- Benoetigte Menge: ${quantity}`,
+      notes ? `- Anmerkungen: ${notes}` : null,
+      "",
+      "Kontaktdaten:",
+      `- Name: ${name}`,
+      `- E-Mail: ${email}`,
+      phone ? `- Telefon: ${phone}` : null,
+      "",
+      "Viele Gruesse",
+      name,
+    ].filter(Boolean);
+
+    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+
+    window.location.href = mailto;
+  });
+}
+
+const productGrid = document.getElementById("product-grid");
+
+if (productGrid instanceof HTMLElement) {
+  const cards = Array.from(productGrid.querySelectorAll("[data-product-card]"));
+  let activeCard = null;
+
+  function setActiveCard(nextCard) {
+    activeCard = nextCard;
+    for (const card of cards) {
+      if (!(card instanceof HTMLElement)) continue;
+      const details = card.querySelector("[data-product-details]");
+      const toggle = card.querySelector("[data-details-toggle]");
+      const closeToggle = card.querySelector("[data-close-toggle]");
+      const isActive = card === nextCard;
+      const isCondensed = nextCard !== null && !isActive;
+
+      card.classList.toggle("is-active", isActive);
+      card.classList.toggle("is-condensed", isCondensed);
+
+      if (details instanceof HTMLElement) {
+        details.hidden = !isActive;
+      }
+
+      if (toggle instanceof HTMLButtonElement) {
+        toggle.setAttribute("aria-expanded", isActive ? "true" : "false");
+        toggle.hidden = isActive;
+        toggle.textContent = "Details";
+      }
+
+      if (closeToggle instanceof HTMLButtonElement) {
+        closeToggle.hidden = !isActive;
+      }
+    }
+  }
+
+  setActiveCard(null);
+
+  productGrid.addEventListener("click", (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+    const toggle = target.closest("[data-details-toggle], [data-close-toggle]");
+    if (!(toggle instanceof HTMLButtonElement)) return;
+    const card = toggle.closest("[data-product-card]");
+    if (!(card instanceof HTMLElement)) return;
+
+    const shouldClose =
+      toggle.hasAttribute("data-close-toggle") || card.classList.contains("is-active");
+    setActiveCard(shouldClose ? null : card);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!(activeCard instanceof HTMLElement)) return;
+    const target = e.target;
+    if (!(target instanceof Node)) return;
+    if (activeCard.contains(target)) return;
+    setActiveCard(null);
   });
 }

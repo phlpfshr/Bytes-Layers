@@ -6,10 +6,11 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Anfrage - Bytes & Layers</title>
+    <title>Produktanfrage - Bytes & Layers</title>
+    <link rel="icon" type="image/png" href="assets/logo-bl-clean.png" />
     <meta
       name="description"
-      content="Projektanfrage mit Kontaktdaten und optionalen Anmerkungen."
+      content="Produktanfrage mit Produkt, Menge, Kontaktdaten und optionalen Anmerkungen."
     />
     <link rel="stylesheet" href="assets/styles.css?v=61dbcc4-worddots" />
   </head>
@@ -21,6 +22,11 @@
           <img src="assets/logo-bl-clean.png" alt="Bytes & Layers" class="logo-mark" />
           <span class="logo-text">Bytes & Layers</span>
         </a>
+        <div class="lang-switch" role="group" aria-label="Sprache">
+          <button class="lang-btn is-active" type="button" data-lang="de">DE</button>
+          <button class="lang-btn" type="button" data-lang="en">EN</button>
+          <button class="lang-btn" type="button" data-lang="fr">FR</button>
+        </div>
         <a
           class="icon-btn header-ig"
           href="https://instagram.com/"
@@ -38,7 +44,7 @@
         <button
           class="nav-toggle"
           type="button"
-          aria-label="Menue"
+          aria-label="Menü"
           aria-controls="site-nav"
           aria-expanded="false"
         >
@@ -58,7 +64,7 @@
             </svg>
           </a>
           <a href="products.html" class="nav-link-products">Produkte</a>
-          <a href="anfrage.html" class="nav-link-request" aria-current="page">Projektanfrage</a>
+          <a href="projektanfrage.html" class="nav-link-request">Projektanfrage</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Kontakt</a>
           <a
@@ -81,45 +87,69 @@
 
     <main class="section">
       <div class="container content-narrow">
-        <h1 class="page-title page-title-center">Anfrage</h1>
+        <h1 class="page-title page-title-center">Produktanfrage</h1>
 
-        <form id="request-form" class="form" novalidate>
+        <form id="product-request-form" class="form" novalidate>
           <div class="form-row">
-            <label class="label" for="request">Anfrage</label>
-            <textarea
-              class="input textarea"
-              id="request"
-              name="request"
-              rows="5"
+            <label class="label" for="product-request-product">Produkt</label>
+            <input
+              class="input"
+              id="product-request-product"
+              name="product"
+              type="text"
+              readonly
               required
-              placeholder="Beschreibe kurz dein Projekt oder deine Anfrage"
-            ></textarea>
+            />
           </div>
-          <div class="form-section">
-            <div class="section-title-center">Kontakt</div>
-            <div class="form-row">
-              <label class="label" for="name">Name</label>
-              <input class="input" id="name" name="name" type="text" autocomplete="name" required />
-            </div>
 
+          <div class="form-row">
+            <span class="label">Benötigte Menge</span>
+            <div class="quantity-options" role="radiogroup" aria-label="Benötigte Menge">
+              <input type="radio" id="quantity-1" name="quantity" value="1" required checked />
+              <label class="quantity-option" for="quantity-1">1</label>
+              <input type="radio" id="quantity-2" name="quantity" value="2" />
+              <label class="quantity-option" for="quantity-2">2</label>
+              <input type="radio" id="quantity-3" name="quantity" value="3" />
+              <label class="quantity-option" for="quantity-3">3</label>
+              <input type="radio" id="quantity-4" name="quantity" value="4" />
+              <label class="quantity-option" for="quantity-4">4</label>
+              <input type="radio" id="quantity-5" name="quantity" value="5" />
+              <label class="quantity-option" for="quantity-5">5</label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="section-title-center">Kontaktdaten</div>
             <div class="form-row">
-              <label class="label" for="email">E-Mail</label>
+              <label class="label" for="product-request-name">Name</label>
               <input
                 class="input"
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
+                id="product-request-name"
+                name="name"
+                type="text"
+                autocomplete="name"
                 required
-                inputmode="email"
               />
             </div>
 
             <div class="form-row">
-              <label class="label" for="phone">Telefon (optional)</label>
+              <label class="label" for="product-request-email">E-Mail</label>
               <input
                 class="input"
-                id="phone"
+                id="product-request-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                inputmode="email"
+                required
+              />
+            </div>
+
+            <div class="form-row">
+              <label class="label" for="product-request-phone">Telefon (optional)</label>
+              <input
+                class="input"
+                id="product-request-phone"
                 name="phone"
                 type="tel"
                 autocomplete="tel"
@@ -128,13 +158,24 @@
             </div>
           </div>
 
-          <div class="cta-group form-actions">
-            <button class="btn btn-primary" type="submit">Jetzt anfragen</button>
-            <a class="btn" href="contact.html">Kontaktseite</a>
+          <div class="form-row form-row-notes">
+            <label class="label" for="product-request-notes">Anmerkungen (optional)</label>
+            <textarea
+              class="input textarea"
+              id="product-request-notes"
+              name="notes"
+              rows="4"
+              placeholder="Weitere Hinweise zur Anfrage"
+            ></textarea>
           </div>
 
-          <p class="form-help" id="request-help">
-            Beim Absenden wird deine Anfrage als E-Mail vorbereitet.
+          <div class="cta-group form-actions">
+            <button class="btn btn-primary" type="submit">Produkt anfragen</button>
+            <a class="btn" href="products.html">Zurück zu Produkten</a>
+          </div>
+
+          <p class="form-help">
+            Beim Absenden wird deine Produktanfrage als E-Mail vorbereitet.
           </p>
         </form>
       </div>

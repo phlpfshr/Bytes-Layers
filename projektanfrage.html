@@ -6,8 +6,12 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>FAQ - Bytes & Layers</title>
+    <title>Projektanfrage - Bytes & Layers</title>
     <link rel="icon" type="image/png" href="assets/logo-bl-clean.png" />
+    <meta
+      name="description"
+      content="Projektanfrage mit Kontaktdaten und optionalen Anmerkungen."
+    />
     <link rel="stylesheet" href="assets/styles.css?v=61dbcc4-worddots" />
   </head>
   <body class="home-page">
@@ -60,8 +64,8 @@
             </svg>
           </a>
           <a href="products.html" class="nav-link-products">Produkte</a>
-          <a href="projektanfrage.html" class="nav-link-request">Projektanfrage</a>
-          <a href="faq.html" aria-current="page">FAQ</a>
+          <a href="projektanfrage.html" class="nav-link-request" aria-current="page">Projektanfrage</a>
+          <a href="faq.html">FAQ</a>
           <a href="contact.html">Kontakt</a>
           <a
             class="icon-btn"
@@ -83,11 +87,62 @@
 
     <main class="section">
       <div class="container content-narrow">
-        <h1>FAQ</h1>
-        <h2>Wie startet eine Zusammenarbeit?</h2>
-        <p>Am schnellsten ueber die Projektanfrage oder direkt ueber das Kontaktformular.</p>
-        <h2>Kann ich fuer Teams einkaufen?</h2>
-        <p>Ja, nutze dafuer bitte das Kontaktformular auf der Kontaktseite.</p>
+        <h1 class="page-title page-title-center">Projektanfrage</h1>
+
+        <form id="request-form" class="form" novalidate>
+          <div class="form-row">
+            <label class="label" for="request">Anfrage</label>
+            <textarea
+              class="input textarea"
+              id="request"
+              name="request"
+              rows="5"
+              required
+              placeholder="Beschreibe kurz dein Projekt oder deine Anfrage"
+            ></textarea>
+          </div>
+          <div class="form-section">
+            <div class="section-title-center">Kontakt</div>
+            <div class="form-row">
+              <label class="label" for="name">Name</label>
+              <input class="input" id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+
+            <div class="form-row">
+              <label class="label" for="email">E-Mail</label>
+              <input
+                class="input"
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                inputmode="email"
+              />
+            </div>
+
+            <div class="form-row">
+              <label class="label" for="phone">Telefon (optional)</label>
+              <input
+                class="input"
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+            </div>
+          </div>
+
+          <div class="cta-group form-actions">
+            <button class="btn btn-primary" type="submit">Jetzt anfragen</button>
+            <a class="btn" href="contact.html">Kontaktseite</a>
+          </div>
+
+          <p class="form-help" id="request-help">
+            Beim Absenden wird deine Anfrage als E-Mail vorbereitet.
+          </p>
+        </form>
       </div>
     </main>
 
