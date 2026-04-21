@@ -8,9 +8,674 @@ const languageButtons = Array.from(document.querySelectorAll(".lang-btn[data-lan
 
 if (languageButtons.length > 0) {
   const supportedLanguages = new Set(["de", "en", "fr"]);
+  let currentLanguage = "de";
+
+  function setText(selector, value) {
+    if (!value) return;
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  }
+
+  function setAttr(selector, attr, value) {
+    if (!value) return;
+    const node = document.querySelector(selector);
+    if (node) node.setAttribute(attr, value);
+  }
+
+  function setMetaDescription(value) {
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta && value) meta.setAttribute("content", value);
+  }
+
+  function applyCommonTranslations(t) {
+    setAttr(".lang-switch", "aria-label", t.langLabel);
+    setAttr(".logo", "aria-label", t.homeLabel);
+    setAttr(".home-icon", "aria-label", t.homeLabel);
+    setAttr(".header-ig", "aria-label", t.instagramLabel);
+    setAttr(".site-nav .icon-btn", "aria-label", t.instagramLabel);
+    setAttr(".nav-toggle", "aria-label", t.menuLabel);
+    setAttr("#site-nav", "aria-label", t.mainNavigationLabel);
+    setText('#site-nav a[href="products.html"]', t.navProducts);
+    setText('#site-nav a[href="projektanfrage.html"]', t.navProjectRequest);
+    setText('#site-nav a[href="faq.html"]', t.navFaq);
+    setText('#site-nav a[href="contact.html"]', t.navContact);
+    setAttr(".site-footer nav", "aria-label", t.legalLabel);
+    setText('.site-footer nav a[href="legal/impressum.html"]', t.legalImprint);
+    setText('.site-footer nav a[href="legal/datenschutz.html"]', t.legalPrivacy);
+    setText('.site-footer nav a[href="legal/agb.html"]', t.legalTerms);
+    setText('.site-footer nav a[href="legal/widerruf.html"]', t.legalWithdrawal);
+  }
+
+  function applyPageTranslations(lang) {
+    const common = {
+      de: {
+        langLabel: "Sprache",
+        homeLabel: "Startseite",
+        instagramLabel: "Instagram Profil",
+        menuLabel: "Menü",
+        mainNavigationLabel: "Hauptnavigation",
+        navProducts: "Produkte",
+        navProjectRequest: "Projektanfrage",
+        navFaq: "FAQ",
+        navContact: "Kontakt",
+        legalLabel: "Rechtliches",
+        legalImprint: "Impressum",
+        legalPrivacy: "Datenschutz",
+        legalTerms: "AGB",
+        legalWithdrawal: "Widerruf",
+      },
+      en: {
+        langLabel: "Language",
+        homeLabel: "Home",
+        instagramLabel: "Instagram profile",
+        menuLabel: "Menu",
+        mainNavigationLabel: "Main navigation",
+        navProducts: "Products",
+        navProjectRequest: "Project request",
+        navFaq: "FAQ",
+        navContact: "Contact",
+        legalLabel: "Legal",
+        legalImprint: "Imprint",
+        legalPrivacy: "Privacy",
+        legalTerms: "Terms",
+        legalWithdrawal: "Withdrawal",
+      },
+      fr: {
+        langLabel: "Langue",
+        homeLabel: "Accueil",
+        instagramLabel: "Profil Instagram",
+        menuLabel: "Menu",
+        mainNavigationLabel: "Navigation principale",
+        navProducts: "Produits",
+        navProjectRequest: "Demande de projet",
+        navFaq: "FAQ",
+        navContact: "Contact",
+        legalLabel: "Mentions légales",
+        legalImprint: "Mentions légales",
+        legalPrivacy: "Confidentialité",
+        legalTerms: "CGV",
+        legalWithdrawal: "Rétractation",
+      },
+    };
+
+    applyCommonTranslations(common[lang]);
+    const page = window.location.pathname.split("/").pop() || "index.html";
+
+    if (page === "index.html") {
+      const map = {
+        de: { title: "Bytes & Layers", description: "Bytes & Layers - Projektanfragen, FAQ und Kontakt." },
+        en: { title: "Bytes & Layers", description: "Bytes & Layers - project requests, FAQ and contact." },
+        fr: { title: "Bytes & Layers", description: "Bytes & Layers - demandes de projet, FAQ et contact." },
+      };
+      document.title = map[lang].title;
+      setMetaDescription(map[lang].description);
+    }
+
+    if (page === "faq.html") {
+      const map = {
+        de: {
+          title: "FAQ - Bytes & Layers",
+          h1: "FAQ",
+          q1: "Wie startet eine Zusammenarbeit?",
+          a1: "Am schnellsten über die Projektanfrage oder direkt über das Kontaktformular.",
+          q2: "Kann ich für Teams einkaufen?",
+          a2: "Ja, nutze dafür bitte das Kontaktformular auf der Kontaktseite.",
+        },
+        en: {
+          title: "FAQ - Bytes & Layers",
+          h1: "FAQ",
+          q1: "How do we start working together?",
+          a1: "The fastest way is via the project request form or directly through the contact form.",
+          q2: "Can I purchase for teams?",
+          a2: "Yes, please use the contact form on the contact page.",
+        },
+        fr: {
+          title: "FAQ - Bytes & Layers",
+          h1: "FAQ",
+          q1: "Comment démarrer une collaboration ?",
+          a1: "Le plus rapide est via la demande de projet ou directement via le formulaire de contact.",
+          q2: "Puis-je acheter pour des équipes ?",
+          a2: "Oui, veuillez utiliser le formulaire de contact sur la page contact.",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setText("main h1", t.h1);
+      setText("main h2:nth-of-type(1)", t.q1);
+      setText("main p:nth-of-type(1)", t.a1);
+      setText("main h2:nth-of-type(2)", t.q2);
+      setText("main p:nth-of-type(2)", t.a2);
+    }
+
+    if (page === "contact.html") {
+      const map = {
+        de: {
+          title: "Kontakt - Bytes & Layers",
+          h1: "Kontakt",
+          topic: "Thema",
+          topicPlaceholder: "Bitte Thema auswählen",
+          topicProject: "Projektanfrage",
+          topicCoop: "Kooperation",
+          topicSupport: "Support",
+          topicOther: "Sonstiges",
+          message: "Nachricht",
+          messagePlaceholder: "Schreib uns hier deine Nachricht",
+          contact: "Kontakt",
+          name: "Name",
+          email: "E-Mail",
+          phone: "Telefon (optional)",
+          send: "Nachricht senden",
+          help: "Beim Absenden wird deine Nachricht als E-Mail vorbereitet.",
+        },
+        en: {
+          title: "Contact - Bytes & Layers",
+          h1: "Contact",
+          topic: "Topic",
+          topicPlaceholder: "Please select a topic",
+          topicProject: "Project request",
+          topicCoop: "Partnership",
+          topicSupport: "Support",
+          topicOther: "Other",
+          message: "Message",
+          messagePlaceholder: "Write your message here",
+          contact: "Contact",
+          name: "Name",
+          email: "Email",
+          phone: "Phone (optional)",
+          send: "Send message",
+          help: "On submit, your message is prepared as an email.",
+        },
+        fr: {
+          title: "Contact - Bytes & Layers",
+          h1: "Contact",
+          topic: "Sujet",
+          topicPlaceholder: "Veuillez choisir un sujet",
+          topicProject: "Demande de projet",
+          topicCoop: "Partenariat",
+          topicSupport: "Support",
+          topicOther: "Autre",
+          message: "Message",
+          messagePlaceholder: "Écris ton message ici",
+          contact: "Contact",
+          name: "Nom",
+          email: "E-mail",
+          phone: "Téléphone (optionnel)",
+          send: "Envoyer le message",
+          help: "À l'envoi, ton message est préparé en e-mail.",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setText("main h1", t.h1);
+      setText('label[for="contact-topic"]', t.topic);
+      setText("#contact-topic option[value='']", t.topicPlaceholder);
+      setText("#contact-topic option[value='Projektanfrage']", t.topicProject);
+      setText("#contact-topic option[value='Kooperation']", t.topicCoop);
+      setText("#contact-topic option[value='Support']", t.topicSupport);
+      setText("#contact-topic option[value='Sonstiges']", t.topicOther);
+      setText('label[for="contact-message"]', t.message);
+      setAttr("#contact-message", "placeholder", t.messagePlaceholder);
+      setText(".form-section .section-title-center", t.contact);
+      setText('label[for="contact-name"]', t.name);
+      setText('label[for="contact-email"]', t.email);
+      setText('label[for="contact-phone"]', t.phone);
+      setText("#contact-form button[type='submit']", t.send);
+      setText("#contact-form .form-help", t.help);
+    }
+
+    if (page === "projektanfrage.html") {
+      const map = {
+        de: {
+          title: "Projektanfrage - Bytes & Layers",
+          h1: "Projektanfrage",
+          request: "Anfrage",
+          requestPlaceholder: "Beschreibe kurz dein Projekt oder deine Anfrage",
+          contact: "Kontakt",
+          name: "Name",
+          email: "E-Mail",
+          phone: "Telefon (optional)",
+          send: "Jetzt anfragen",
+          contactPage: "Kontaktseite",
+          help: "Beim Absenden wird deine Anfrage als E-Mail vorbereitet.",
+        },
+        en: {
+          title: "Project Request - Bytes & Layers",
+          h1: "Project request",
+          request: "Request",
+          requestPlaceholder: "Briefly describe your project or request",
+          contact: "Contact",
+          name: "Name",
+          email: "Email",
+          phone: "Phone (optional)",
+          send: "Send request",
+          contactPage: "Contact page",
+          help: "On submit, your request is prepared as an email.",
+        },
+        fr: {
+          title: "Demande de projet - Bytes & Layers",
+          h1: "Demande de projet",
+          request: "Demande",
+          requestPlaceholder: "Décris brièvement ton projet ou ta demande",
+          contact: "Contact",
+          name: "Nom",
+          email: "E-mail",
+          phone: "Téléphone (optionnel)",
+          send: "Envoyer la demande",
+          contactPage: "Page contact",
+          help: "À l'envoi, ta demande est préparée en e-mail.",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setText("main h1", t.h1);
+      setText('label[for="request"]', t.request);
+      setAttr("#request", "placeholder", t.requestPlaceholder);
+      setText(".form-section .section-title-center", t.contact);
+      setText('label[for="name"]', t.name);
+      setText('label[for="email"]', t.email);
+      setText('label[for="phone"]', t.phone);
+      setText("#request-form button[type='submit']", t.send);
+      setText("#request-form .btn[href='contact.html']", t.contactPage);
+      setText("#request-help", t.help);
+    }
+
+    if (page === "produktanfrage.html") {
+      const map = {
+        de: {
+          title: "Produktanfrage - Bytes & Layers",
+          h1: "Produktanfrage",
+          product: "Produkt",
+          quantity: "Benötigte Menge",
+          contact: "Kontaktdaten",
+          name: "Name",
+          email: "E-Mail",
+          phone: "Telefon (optional)",
+          notes: "Anmerkungen (optional)",
+          notesPlaceholder: "Weitere Hinweise zur Anfrage",
+          send: "Produkt anfragen",
+          back: "Zurück zu Produkten",
+          help: "Beim Absenden wird deine Produktanfrage als E-Mail vorbereitet.",
+        },
+        en: {
+          title: "Product Request - Bytes & Layers",
+          h1: "Product request",
+          product: "Product",
+          quantity: "Required quantity",
+          contact: "Contact details",
+          name: "Name",
+          email: "Email",
+          phone: "Phone (optional)",
+          notes: "Notes (optional)",
+          notesPlaceholder: "Additional request notes",
+          send: "Request product",
+          back: "Back to products",
+          help: "On submit, your product request is prepared as an email.",
+        },
+        fr: {
+          title: "Demande produit - Bytes & Layers",
+          h1: "Demande produit",
+          product: "Produit",
+          quantity: "Quantité nécessaire",
+          contact: "Coordonnées",
+          name: "Nom",
+          email: "E-mail",
+          phone: "Téléphone (optionnel)",
+          notes: "Remarques (optionnel)",
+          notesPlaceholder: "Informations complémentaires",
+          send: "Demander ce produit",
+          back: "Retour aux produits",
+          help: "À l'envoi, ta demande produit est préparée en e-mail.",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setText("main h1", t.h1);
+      setText('label[for="product-request-product"]', t.product);
+      setText(".form-row:nth-of-type(2) .label", t.quantity);
+      setAttr(".quantity-options", "aria-label", t.quantity);
+      setText(".form-section .section-title-center", t.contact);
+      setText('label[for="product-request-name"]', t.name);
+      setText('label[for="product-request-email"]', t.email);
+      setText('label[for="product-request-phone"]', t.phone);
+      setText('label[for="product-request-notes"]', t.notes);
+      setAttr("#product-request-notes", "placeholder", t.notesPlaceholder);
+      setText("#product-request-form button[type='submit']", t.send);
+      setText("#product-request-form .btn[href='products.html']", t.back);
+      setText("#product-request-form .form-help", t.help);
+    }
+
+    if (page === "products.html") {
+      const map = {
+        de: {
+          title: "Produkte - Bytes & Layers",
+          h1: "Produkte",
+          cards: [
+            {
+              name: "Fusion",
+              price: "Preis auf Anfrage",
+              summary: "Fusion ist eine smarte Cocktail-Maschine für Events, Bars und Aktivierungen. Sie automatisiert die Zubereitung und sorgt für konstant reproduzierbare Drinks.",
+              features: [
+                "Steuerung und Rezeptverwaltung bequem über App",
+                "Mixverhältnisse je Drink individuell einstellbar",
+                "Schnelle Ausgabe auch bei hoher Nachfrage",
+              ],
+              specs: [
+                "Flaschenanschlüsse: bis zu 5",
+                "Steuerung: App-basiert (iOS/Android)",
+                "Rezeptlogik: frei konfigurierbare Mixprofile",
+              ],
+              request: "Anfrage für Fusion stellen",
+            },
+            {
+              name: "Racer",
+              price: "Preis auf Anfrage",
+              summary: "Racer ist ein interaktives Timing-Gerät: Man stellt ein Bier auf die Fläche, startet den Run und misst die Zeit präzise. So entstehen kurze, kompetitive Challenges mit hohem Unterhaltungswert.",
+              features: [
+                "Mehrere Spielmodi für Solo, Battle und Turnier-Format",
+                "Companion-App mit Session-Daten und Nutzerprofilen",
+                "Live-Highscore für Wettbewerb und wiederholte Teilnahme",
+              ],
+              specs: [
+                "Messprinzip: kontaktbasierte Start-/Stop-Erkennung",
+                "Konnektivität: App-Anbindung für Scores und Rankings",
+                "Betrieb: Event-ready Setup mit schneller Inbetriebnahme",
+              ],
+              request: "Anfrage für Racer stellen",
+            },
+            {
+              name: "Sizzler",
+              price: "Preis auf Anfrage",
+              summary: "Sizzler ist eine modulare Kochbox als robuste Alu-Box mit integriertem Stauraum. Primär ist sie für Camping konzipiert, eignet sich aber ebenso für weitere mobile Einsatzbereiche.",
+              features: [
+                "Montierbare Ablageflächen, auch als Schneidebretter nutzbar",
+                "Magnet-Halterung für Messer und strukturierter Arbeitsbereich",
+                "Innenbeleuchtung und integriertes Gewürzregal",
+              ],
+              specs: [
+                "Gehäuse: Alu-Box mit Stauraum",
+                "Kochstelle: eingebauter Gaskocher",
+                "Ausstattung: integrierte Ablagen und Messer-Magnetschiene",
+              ],
+              request: "Anfrage für Sizzler stellen",
+            },
+          ],
+          details: "Details",
+          close: "Details schließen",
+          blockDescription: "Beschreibung",
+          blockFeatures: "Main features",
+          blockSpecs: "Technische Daten",
+        },
+        en: {
+          title: "Products - Bytes & Layers",
+          h1: "Products",
+          cards: [
+            {
+              name: "Fusion",
+              price: "Price on request",
+              summary: "Fusion is an automated cocktail station for consistent drinks at high throughput. The system handles dosing and flow with repeatable quality.",
+              features: [
+                "Automated recipe control for consistent taste",
+                "Fast output under high event demand",
+                "Brand-ready surfaces and modular integration",
+              ],
+              specs: [
+                "Power supply: 230 V",
+                "Control: touch display + preset recipes",
+                "Output: up to 120 drinks per hour",
+              ],
+              request: "Request Fusion",
+            },
+            {
+              name: "Racer",
+              price: "Price on request",
+              summary: "Racer is an interactive timing device: place a beer on the surface, start the run, and track the time precisely. It creates short, competitive challenges with strong engagement.",
+              features: [
+                "Multiple game modes for solo, battle and tournament",
+                "Companion app with session data and user profiles",
+                "Live highscore for competition and repeated participation",
+              ],
+              specs: [
+                "Measurement: contact-based start/stop detection",
+                "Connectivity: app integration for scores and rankings",
+                "Operation: event-ready setup with quick start",
+              ],
+              request: "Request Racer",
+            },
+            {
+              name: "Sizzler",
+              price: "Price on request",
+              summary: "Sizzler is a modular cooking box for live cooking, sampling and branded product experiences. The setup adapts flexibly to venue and visitor flow.",
+              features: [
+                "Modular stations for different food concepts",
+                "Efficient setup and teardown for roadshows",
+                "Suitable for pop-ups, festivals and retail activations",
+              ],
+              specs: [
+                "Modules: 3 to 6 stations",
+                "Connection: 230 V, water connection optional",
+                "Mobility: rollable and transport-optimized",
+              ],
+              request: "Request Sizzler",
+            },
+          ],
+          details: "Details",
+          close: "Close details",
+          blockDescription: "Description",
+          blockFeatures: "Main features",
+          blockSpecs: "Technical data",
+        },
+        fr: {
+          title: "Produits - Bytes & Layers",
+          h1: "Produits",
+          cards: [
+            {
+              name: "Fusion",
+              price: "Prix sur demande",
+              summary: "Fusion est une station de cocktails automatisée pour des boissons constantes à haut débit. Le système gère le dosage et le flux avec une qualité reproductible.",
+              features: [
+                "Contrôle automatisé des recettes pour un goût constant",
+                "Distribution rapide en forte affluence",
+                "Surfaces brandables et intégration modulaire",
+              ],
+              specs: [
+                "Alimentation: 230 V",
+                "Commande: écran tactile + recettes prédéfinies",
+                "Capacité: jusqu'à 120 boissons par heure",
+              ],
+              request: "Demander Fusion",
+            },
+            {
+              name: "Racer",
+              price: "Prix sur demande",
+              summary: "Racer est un dispositif de chronométrage interactif: posez une bière sur la surface, lancez la manche et mesurez le temps avec précision. Cela crée des défis courts et compétitifs.",
+              features: [
+                "Plusieurs modes de jeu: solo, battle et tournoi",
+                "Application compagnon avec données de session et profils",
+                "Highscore en direct pour stimuler la compétition",
+              ],
+              specs: [
+                "Mesure: détection départ/arrêt par contact",
+                "Connectivité: application pour scores et classements",
+                "Exploitation: setup événementiel prêt à l'emploi",
+              ],
+              request: "Demander Racer",
+            },
+            {
+              name: "Sizzler",
+              price: "Prix sur demande",
+              summary: "Sizzler est une box de cuisine modulaire pour live cooking, sampling et expériences produits de marque. Le setup s'adapte au lieu et au flux de visiteurs.",
+              features: [
+                "Stations modulaires pour différents concepts food",
+                "Montage et démontage efficaces pour roadshows",
+                "Adapté aux pop-ups, festivals et activations retail",
+              ],
+              specs: [
+                "Modules: 3 à 6 stations",
+                "Connexion: 230 V, arrivée d'eau optionnelle",
+                "Mobilité: sur roulettes et optimisé pour le transport",
+              ],
+              request: "Demander Sizzler",
+            },
+          ],
+          details: "Détails",
+          close: "Fermer les détails",
+          blockDescription: "Description",
+          blockFeatures: "Main features",
+          blockSpecs: "Données techniques",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setText("main h1", t.h1);
+
+      const cards = Array.from(document.querySelectorAll("[data-product-card]"));
+      cards.forEach((card, idx) => {
+        const entry = t.cards[idx];
+        if (!entry || !(card instanceof HTMLElement)) return;
+        const heading = card.querySelector("h2");
+        if (heading) heading.textContent = entry.name;
+        const price = card.querySelector("p strong");
+        if (price) price.textContent = entry.price;
+        const blockTitles = card.querySelectorAll(".product-detail-block h3");
+        if (blockTitles[0]) blockTitles[0].textContent = t.blockDescription;
+        if (blockTitles[1]) blockTitles[1].textContent = t.blockFeatures;
+        if (blockTitles[2]) blockTitles[2].textContent = t.blockSpecs;
+        const summary = card.querySelector(".product-detail-block:nth-of-type(1) p");
+        if (summary) summary.textContent = entry.summary;
+        const featureItems = card.querySelectorAll(".product-detail-block:nth-of-type(2) li");
+        featureItems.forEach((li, i) => {
+          if (entry.features[i]) li.textContent = entry.features[i];
+        });
+        const specItems = card.querySelectorAll(".product-detail-block:nth-of-type(3) li");
+        specItems.forEach((li, i) => {
+          if (entry.specs[i]) li.textContent = entry.specs[i];
+        });
+        const requestBtn = card.querySelector(".product-request-btn");
+        if (requestBtn) requestBtn.textContent = entry.request;
+      });
+
+      for (const button of document.querySelectorAll("[data-details-toggle]")) {
+        if (button instanceof HTMLButtonElement) button.textContent = t.details;
+      }
+      for (const button of document.querySelectorAll("[data-close-toggle]")) {
+        if (button instanceof HTMLButtonElement) button.setAttribute("aria-label", t.close);
+      }
+    }
+
+    if (page === "product-racer.html") {
+      const map = {
+        de: {
+          title: "Racer - Bytes & Layers",
+          description: "Racer: Gerät zum Messen der Zeit beim Bierexen, mit Modi für Solo und Teams, Highscore-Liste und App.",
+          h1: "Racer",
+          paragraph: "Racer misst präzise die Zeit beim Bierexen und macht daraus ein Spiel: verschiedene Modi, alleine oder im Team, plus Highscore-Liste. Die App begleitet Setup, Spielmodi und Auswertung.",
+          list: [
+            "Modi: Solo und Team (mehrere Runden / Challenges)",
+            "Highscore-Liste (lokal oder über App, je nach Setup)",
+            "App für Konfiguration, Spielsteuerung und Ergebnisse",
+          ],
+          price: "Preis auf Anfrage",
+          cta: "Jetzt anfragen",
+        },
+        en: {
+          title: "Racer - Bytes & Layers",
+          description: "Racer: timing device for beer-chug challenges, including solo/team modes, highscore and app.",
+          h1: "Racer",
+          paragraph: "Racer measures beer-chug times with precision and turns it into a game: multiple modes, solo or team, plus live highscores. The app supports setup, game modes and evaluation.",
+          list: [
+            "Modes: solo and team (multiple rounds / challenges)",
+            "Highscore ranking (local or via app, depending on setup)",
+            "App for configuration, game control and results",
+          ],
+          price: "Price on request",
+          cta: "Request now",
+        },
+        fr: {
+          title: "Racer - Bytes & Layers",
+          description: "Racer: appareil de chronométrage pour défis de bière, avec modes solo/équipe, highscore et application.",
+          h1: "Racer",
+          paragraph: "Racer mesure avec précision le temps de bière et en fait un jeu: plusieurs modes, en solo ou en équipe, avec highscore en direct. L'application accompagne le setup et les résultats.",
+          list: [
+            "Modes: solo et équipe (plusieurs manches / défis)",
+            "Classement highscore (local ou via l'application)",
+            "Application pour configuration, pilotage et résultats",
+          ],
+          price: "Prix sur demande",
+          cta: "Demander maintenant",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setMetaDescription(t.description);
+      setText("main h1", t.h1);
+      setText("main p:nth-of-type(1)", t.paragraph);
+      const items = document.querySelectorAll("main ul li");
+      items.forEach((li, idx) => {
+        if (t.list[idx]) li.textContent = t.list[idx];
+      });
+      setText("main p strong", t.price);
+      setText(".btn.btn-primary", t.cta);
+    }
+
+    if (page === "product-cocktail-maschine.html") {
+      const map = {
+        de: {
+          title: "Cocktail Maschine - Bytes & Layers",
+          description: "Cocktail Maschine: automatisierte Mixgetränke für Zuhause.",
+          h1: "Cocktail Maschine",
+          paragraph: "Kompakte Maschine zur Zubereitung klassischer und eigener Rezepte. Lieferumfang und Konfiguration werden im Checkout oder per Anfrage abgestimmt.",
+          list: [
+            "Versand innerhalb DE nach Absprache",
+            "Gewährleistung nach gesetzlichen Vorgaben",
+            "Details zu Zutatenbehältern und Reinigung in der Produktinfo",
+          ],
+          price: "Preis auf Anfrage",
+          cta: "Jetzt anfragen",
+        },
+        en: {
+          title: "Cocktail Machine - Bytes & Layers",
+          description: "Cocktail Machine: automated mixed drinks for home and events.",
+          h1: "Cocktail Machine",
+          paragraph: "Compact machine for classic and custom recipes. Scope and configuration are aligned during checkout or by request.",
+          list: [
+            "Shipping within DE by arrangement",
+            "Warranty according to legal requirements",
+            "Details on ingredient containers and cleaning in product info",
+          ],
+          price: "Price on request",
+          cta: "Request now",
+        },
+        fr: {
+          title: "Machine à cocktails - Bytes & Layers",
+          description: "Machine à cocktails: préparation automatisée de boissons mixées.",
+          h1: "Machine à cocktails",
+          paragraph: "Machine compacte pour préparer des recettes classiques et personnalisées. Le contenu et la configuration sont définis au checkout ou sur demande.",
+          list: [
+            "Livraison en DE sur accord",
+            "Garantie selon les exigences légales",
+            "Détails sur les réservoirs et le nettoyage dans la fiche produit",
+          ],
+          price: "Prix sur demande",
+          cta: "Demander maintenant",
+        },
+      };
+      const t = map[lang];
+      document.title = t.title;
+      setMetaDescription(t.description);
+      setText("main h1", t.h1);
+      setText("main p:nth-of-type(1)", t.paragraph);
+      const items = document.querySelectorAll("main ul li");
+      items.forEach((li, idx) => {
+        if (t.list[idx]) li.textContent = t.list[idx];
+      });
+      setText("main p strong", t.price);
+      setText(".btn.btn-primary", t.cta);
+    }
+  }
 
   function applyLanguage(lang) {
     const normalized = supportedLanguages.has(lang) ? lang : "de";
+    currentLanguage = normalized;
     document.documentElement.lang = normalized;
 
     for (const button of languageButtons) {
@@ -22,6 +687,7 @@ if (languageButtons.length > 0) {
     }
 
     localStorage.setItem("site-language", normalized);
+    applyPageTranslations(normalized);
   }
 
   const storedLanguage = localStorage.getItem("site-language") || "de";
@@ -517,6 +1183,17 @@ const productGrid = document.getElementById("product-grid");
 if (productGrid instanceof HTMLElement) {
   const cards = Array.from(productGrid.querySelectorAll("[data-product-card]"));
   let activeCard = null;
+  const lightbox = document.getElementById("photo-lightbox");
+  const lightboxContent = document.getElementById("photo-lightbox-content");
+  let lastPhotoTrigger = null;
+
+  function closeLightbox() {
+    if (!(lightbox instanceof HTMLElement)) return;
+    lightbox.hidden = true;
+    if (lastPhotoTrigger instanceof HTMLButtonElement) {
+      lastPhotoTrigger.focus();
+    }
+  }
 
   function setActiveCard(nextCard) {
     activeCard = nextCard;
@@ -538,7 +1215,11 @@ if (productGrid instanceof HTMLElement) {
       if (toggle instanceof HTMLButtonElement) {
         toggle.setAttribute("aria-expanded", isActive ? "true" : "false");
         toggle.hidden = isActive;
-        toggle.textContent = "Details";
+        toggle.textContent = document.documentElement.lang === "fr"
+          ? "Détails"
+          : document.documentElement.lang === "en"
+            ? "Details"
+            : "Details";
       }
 
       if (closeToggle instanceof HTMLButtonElement) {
@@ -552,6 +1233,18 @@ if (productGrid instanceof HTMLElement) {
   productGrid.addEventListener("click", (e) => {
     const target = e.target;
     if (!(target instanceof Element)) return;
+
+    const photoTrigger = target.closest(".product-photo-trigger");
+    if (photoTrigger instanceof HTMLButtonElement) {
+      const label = photoTrigger.dataset.photoLabel || "Foto";
+      if (lightbox instanceof HTMLElement && lightboxContent instanceof HTMLElement) {
+        lastPhotoTrigger = photoTrigger;
+        lightboxContent.textContent = label;
+        lightbox.hidden = false;
+      }
+      return;
+    }
+
     const toggle = target.closest("[data-details-toggle], [data-close-toggle]");
     if (!(toggle instanceof HTMLButtonElement)) return;
     const card = toggle.closest("[data-product-card]");
@@ -564,9 +1257,30 @@ if (productGrid instanceof HTMLElement) {
 
   document.addEventListener("click", (e) => {
     if (!(activeCard instanceof HTMLElement)) return;
+    if (lightbox instanceof HTMLElement && !lightbox.hidden) {
+      const maybeTarget = e.target;
+      if (maybeTarget instanceof Node && lightbox.contains(maybeTarget)) return;
+    }
     const target = e.target;
     if (!(target instanceof Node)) return;
     if (activeCard.contains(target)) return;
     setActiveCard(null);
   });
+
+  if (lightbox instanceof HTMLElement) {
+    lightbox.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const target = e.target;
+      if (!(target instanceof Element)) return;
+      const closeTrigger = target.closest("[data-lightbox-close]");
+      if (!closeTrigger) return;
+      closeLightbox();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (lightbox.hidden) return;
+      closeLightbox();
+    });
+  }
 }
