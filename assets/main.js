@@ -37,8 +37,6 @@ if (languageButtons.length > 0) {
     setAttr("#site-nav", "aria-label", t.mainNavigationLabel);
     setText('#site-nav a[href="products.html"]', t.navProducts);
     setText('#site-nav a[href="projektanfrage.html"]', t.navProjectRequest);
-    setText('#site-nav a[href="faq.html"]', t.navFaq);
-    setText('#site-nav a[href="contact.html"]', t.navContact);
     setAttr(".site-footer nav", "aria-label", t.legalLabel);
     setText('.site-footer nav a[href="legal/impressum.html"]', t.legalImprint);
     setText('.site-footer nav a[href="legal/datenschutz.html"]', t.legalPrivacy);
@@ -56,8 +54,6 @@ if (languageButtons.length > 0) {
         mainNavigationLabel: "Hauptnavigation",
         navProducts: "Produkte",
         navProjectRequest: "Projektanfrage",
-        navFaq: "FAQ",
-        navContact: "Kontakt",
         legalLabel: "Rechtliches",
         legalImprint: "Impressum",
         legalPrivacy: "Datenschutz",
@@ -72,8 +68,6 @@ if (languageButtons.length > 0) {
         mainNavigationLabel: "Main navigation",
         navProducts: "Products",
         navProjectRequest: "Project request",
-        navFaq: "FAQ",
-        navContact: "Contact",
         legalLabel: "Legal",
         legalImprint: "Imprint",
         legalPrivacy: "Privacy",
@@ -88,8 +82,6 @@ if (languageButtons.length > 0) {
         mainNavigationLabel: "Navigation principale",
         navProducts: "Produits",
         navProjectRequest: "Demande de projet",
-        navFaq: "FAQ",
-        navContact: "Contact",
         legalLabel: "Mentions légales",
         legalImprint: "Mentions légales",
         legalPrivacy: "Confidentialité",
@@ -103,125 +95,14 @@ if (languageButtons.length > 0) {
 
     if (page === "index.html") {
       const map = {
-        de: { title: "Bytes & Layers", description: "Bytes & Layers - Projektanfragen, FAQ und Kontakt." },
-        en: { title: "Bytes & Layers", description: "Bytes & Layers - project requests, FAQ and contact." },
-        fr: { title: "Bytes & Layers", description: "Bytes & Layers - demandes de projet, FAQ et contact." },
+        de: { title: "Bytes & Layers", description: "Bytes & Layers - Produktanfragen und Informationen." },
+        en: { title: "Bytes & Layers", description: "Bytes & Layers - product requests and information." },
+        fr: { title: "Bytes & Layers", description: "Bytes & Layers - demandes produit et informations." },
       };
       document.title = map[lang].title;
       setMetaDescription(map[lang].description);
     }
 
-    if (page === "faq.html") {
-      const map = {
-        de: {
-          title: "FAQ - Bytes & Layers",
-          h1: "FAQ",
-          q1: "Wie startet eine Zusammenarbeit?",
-          a1: "Am schnellsten über die Projektanfrage oder direkt über das Kontaktformular.",
-          q2: "Kann ich für Teams einkaufen?",
-          a2: "Ja, nutze dafür bitte das Kontaktformular auf der Kontaktseite.",
-        },
-        en: {
-          title: "FAQ - Bytes & Layers",
-          h1: "FAQ",
-          q1: "How do we start working together?",
-          a1: "The fastest way is via the project request form or directly through the contact form.",
-          q2: "Can I purchase for teams?",
-          a2: "Yes, please use the contact form on the contact page.",
-        },
-        fr: {
-          title: "FAQ - Bytes & Layers",
-          h1: "FAQ",
-          q1: "Comment démarrer une collaboration ?",
-          a1: "Le plus rapide est via la demande de projet ou directement via le formulaire de contact.",
-          q2: "Puis-je acheter pour des équipes ?",
-          a2: "Oui, veuillez utiliser le formulaire de contact sur la page contact.",
-        },
-      };
-      const t = map[lang];
-      document.title = t.title;
-      setText("main h1", t.h1);
-      setText("main h2:nth-of-type(1)", t.q1);
-      setText("main p:nth-of-type(1)", t.a1);
-      setText("main h2:nth-of-type(2)", t.q2);
-      setText("main p:nth-of-type(2)", t.a2);
-    }
-
-    if (page === "contact.html") {
-      const map = {
-        de: {
-          title: "Kontakt - Bytes & Layers",
-          h1: "Kontakt",
-          topic: "Thema",
-          topicPlaceholder: "Bitte Thema auswählen",
-          topicProject: "Projektanfrage",
-          topicCoop: "Kooperation",
-          topicSupport: "Support",
-          topicOther: "Sonstiges",
-          message: "Nachricht",
-          messagePlaceholder: "Schreib uns hier deine Nachricht",
-          contact: "Kontakt",
-          name: "Name",
-          email: "E-Mail",
-          phone: "Telefon (optional)",
-          send: "Nachricht senden",
-          help: "Beim Absenden wird deine Nachricht als E-Mail vorbereitet.",
-        },
-        en: {
-          title: "Contact - Bytes & Layers",
-          h1: "Contact",
-          topic: "Topic",
-          topicPlaceholder: "Please select a topic",
-          topicProject: "Project request",
-          topicCoop: "Partnership",
-          topicSupport: "Support",
-          topicOther: "Other",
-          message: "Message",
-          messagePlaceholder: "Write your message here",
-          contact: "Contact",
-          name: "Name",
-          email: "Email",
-          phone: "Phone (optional)",
-          send: "Send message",
-          help: "On submit, your message is prepared as an email.",
-        },
-        fr: {
-          title: "Contact - Bytes & Layers",
-          h1: "Contact",
-          topic: "Sujet",
-          topicPlaceholder: "Veuillez choisir un sujet",
-          topicProject: "Demande de projet",
-          topicCoop: "Partenariat",
-          topicSupport: "Support",
-          topicOther: "Autre",
-          message: "Message",
-          messagePlaceholder: "Écris ton message ici",
-          contact: "Contact",
-          name: "Nom",
-          email: "E-mail",
-          phone: "Téléphone (optionnel)",
-          send: "Envoyer le message",
-          help: "À l'envoi, ton message est préparé en e-mail.",
-        },
-      };
-      const t = map[lang];
-      document.title = t.title;
-      setText("main h1", t.h1);
-      setText('label[for="contact-topic"]', t.topic);
-      setText("#contact-topic option[value='']", t.topicPlaceholder);
-      setText("#contact-topic option[value='Projektanfrage']", t.topicProject);
-      setText("#contact-topic option[value='Kooperation']", t.topicCoop);
-      setText("#contact-topic option[value='Support']", t.topicSupport);
-      setText("#contact-topic option[value='Sonstiges']", t.topicOther);
-      setText('label[for="contact-message"]', t.message);
-      setAttr("#contact-message", "placeholder", t.messagePlaceholder);
-      setText(".form-section .section-title-center", t.contact);
-      setText('label[for="contact-name"]', t.name);
-      setText('label[for="contact-email"]', t.email);
-      setText('label[for="contact-phone"]', t.phone);
-      setText("#contact-form button[type='submit']", t.send);
-      setText("#contact-form .form-help", t.help);
-    }
 
     if (page === "projektanfrage.html") {
       const map = {
@@ -275,7 +156,6 @@ if (languageButtons.length > 0) {
       setText('label[for="email"]', t.email);
       setText('label[for="phone"]', t.phone);
       setText("#request-form button[type='submit']", t.send);
-      setText("#request-form .btn[href='contact.html']", t.contactPage);
       setText("#request-help", t.help);
     }
 
@@ -293,7 +173,7 @@ if (languageButtons.length > 0) {
           notes: "Anmerkungen (optional)",
           notesPlaceholder: "Weitere Hinweise zur Anfrage",
           send: "Produkt anfragen",
-          back: "Zurück zu Produkten",
+          back: "Zurück zur Startseite",
           help: "Beim Absenden wird deine Produktanfrage als E-Mail vorbereitet.",
         },
         en: {
@@ -308,7 +188,7 @@ if (languageButtons.length > 0) {
           notes: "Notes (optional)",
           notesPlaceholder: "Additional request notes",
           send: "Request product",
-          back: "Back to products",
+          back: "Back to home",
           help: "On submit, your product request is prepared as an email.",
         },
         fr: {
@@ -323,7 +203,7 @@ if (languageButtons.length > 0) {
           notes: "Remarques (optionnel)",
           notesPlaceholder: "Informations complémentaires",
           send: "Demander ce produit",
-          back: "Retour aux produits",
+          back: "Retour à l'accueil",
           help: "À l'envoi, ta demande produit est préparée en e-mail.",
         },
       };
@@ -340,7 +220,7 @@ if (languageButtons.length > 0) {
       setText('label[for="product-request-notes"]', t.notes);
       setAttr("#product-request-notes", "placeholder", t.notesPlaceholder);
       setText("#product-request-form button[type='submit']", t.send);
-      setText("#product-request-form .btn[href='products.html']", t.back);
+      setText("#product-request-form .btn[href='index.html']", t.back);
       setText("#product-request-form .form-help", t.help);
     }
 
